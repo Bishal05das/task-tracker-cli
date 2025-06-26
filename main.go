@@ -138,3 +138,20 @@ func deleteTask(id int) {
 	fmt.Println("Task deleted successfully!")
 }
 
+//update status
+
+func updateStatus(id int, status string) {
+	tasks := readTasks()
+
+	for id, task := range tasks {
+		if id == task.ID {
+			tasks[id].Status = status
+			tasks[id].UpdatedAt = time.Now().Format(time.RFC3339)
+			saveTasks(tasks)
+			fmt.Println("Task status updated successfully!")
+			return
+		}
+	}
+	fmt.Println("Task not found.")
+}
+
