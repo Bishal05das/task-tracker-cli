@@ -106,3 +106,35 @@ func listTasks() {
 		return
 	}
 }
+
+//update task
+
+func updateTask(id int, newDescription string) {
+	tasks := readTasks()
+	for i, task := range tasks {
+		if task.ID == id {
+           tasks[i].Description = newDescription
+		   tasks[i].UpdatedAt = time.Now().Format(time.RFC3339)
+		   saveTasks(tasks)
+		   fmt.Println("Task updated successfully!")
+		   return
+		}
+	}
+	fmt.Println("Task not found.")
+}
+
+//delete task
+
+func deleteTask(id int) {
+	tasks := readTasks()
+	newtasks := []Task{}
+
+	for _, task := range tasks {
+		if id != task.ID {
+			newtasks = append(newtasks, task)
+		}
+	}
+	saveTasks(newtasks)
+	fmt.Println("Task deleted successfully!")
+}
+
